@@ -20,3 +20,17 @@ The bond context menu in Molecules mode SHALL offer **Remove S-Group** for a sin
 
 - **WHEN** the S-group of the bond is a functional group, a monomer, or a superatom without a label
 - **THEN** **Remove S-Group** is not shown
+
+### Requirement: Removing an S-group from the S-Group Properties dialog
+
+The S-Group Properties dialog SHALL offer a **Remove** button when it is opened for an existing S-group, and SHALL remove that S-group while keeping its atoms and bonds.
+
+#### Scenario: Removing the S-group from the dialog
+
+- **WHEN** the user opens S-Group Properties for an existing S-group and presses **Remove**
+- **THEN** the dialog closes, the S-group is removed, its atoms and bonds stay on the canvas, and one undo restores it
+
+#### Scenario: No button for a new S-group
+
+- **WHEN** the user opens S-Group Properties to create an S-group
+- **THEN** the **Remove** button is not shown

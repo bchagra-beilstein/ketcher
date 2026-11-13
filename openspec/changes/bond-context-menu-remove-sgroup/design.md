@@ -8,11 +8,11 @@
 
 - One menu item that removes the S-group under the right-clicked bond, keeping atoms and bonds.
 - The same visibility rules as **Edit S-Group...**, so the two items always appear together.
+- A **Remove** button in the S-Group Properties dialog for an existing S-group.
 
 **Non-Goals:**
 
 - Changing the atoms of an S-group. There is no agreed UI for it yet.
-- A remove button in the S-Group Properties dialog.
 - The atom context menu. #2347 adds S-group items there; **Remove S-Group** can follow once it is merged.
 
 ## Decisions
@@ -30,6 +30,12 @@ The Eraser does not delete these directly either: it opens the confirmation dial
 ### Decision 3: No confirmation
 
 Removing the S-group keeps every atom and bond and can be undone in one step, like **Remove Abbreviation** from the functional group menu.
+
+### Decision 4: The dialog returns a remove result
+
+`SGroupTool.sgroupDialog` passes `canRemove` to the dialog when it is opened for an existing S-group. The button resolves the dialog with `{ remove: true }`, and `sgroupDialog` then calls `fromSgroupDeletion` instead of applying the form. The dialog does not open for monomers and generic S-groups, so they get no button.
+
+Alternative considered: delete from inside the dialog component. Rejected because the dialog has no S-group id and all other results of this dialog are applied in `sgroupDialog`.
 
 ## Risks / Trade-offs
 
